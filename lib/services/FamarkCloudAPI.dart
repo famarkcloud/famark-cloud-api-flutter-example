@@ -6,7 +6,6 @@ class FamarkCloudAPI {
   static String _sessionId = "";
   static String errorDisplayMessage = "";
 
-
   Future loginPost(String domainName, String userName, String password) async{
     Map<String, dynamic> credData = {
       "DomainName" : domainName,
@@ -18,10 +17,7 @@ class FamarkCloudAPI {
     if(response == null) {
       return;
     }
-
     _sessionId = jsonDecode(response);
-    //print("session : "+jsonDecode(await doPost("/Credential/Connect", request)));
-    //print("sessionId : "+_sessionId);
   }
 
   Future<List<dynamic>> retrieveRecords() async{
