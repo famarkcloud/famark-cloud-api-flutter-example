@@ -4,6 +4,8 @@ import 'dart:convert';
 class FamarkCloudAPI {
   static final _baseURL = "https://www.famark.com/host/api.svc/api";
   static String _sessionId = "";
+  static String errorDisplayMessage = "";
+
 
   Future loginPost(String domainName, String userName, String password) async{
     Map<String, dynamic> credData = {
@@ -12,8 +14,14 @@ class FamarkCloudAPI {
       "Password" : password
     };
     String request = json.encode(credData);
-    String sessionId = jsonDecode(await doPost("/Credential/Connect", request));
-    _sessionId = sessionId;
+    var response = await doPost("/Credential/Connect", request);
+    if(response == null) {
+      return;
+    }
+
+    _sessionId = jsonDecode(response);
+    //print("session : "+jsonDecode(await doPost("/Credential/Connect", request)));
+    //print("sessionId : "+_sessionId);
   }
 
   Future<List<dynamic>> retrieveRecords() async{
@@ -22,7 +30,8 @@ class FamarkCloudAPI {
       "OrderBy": "FirstName"
     };
     String request = json.encode(retrieveData);
-    List<dynamic> records = jsonDecode(await doPost("/Contact/RetrieveMultipleRecords", request));
+    var response = await doPost("/Contact/RetrieveMultipleRecords", request);
+    List<dynamic> records = jsonDecode(response!);
     return records;
   }
 
@@ -45,7 +54,7 @@ class FamarkCloudAPI {
     await doPost("/Contact/UpdateRecord", request);
   }
 
-  Future<String> doPost(String suffixUrl, String body) async {
+  Future<String?> doPost(String suffixUrl, String body) async {
     Map<String,String> headers = {
       'content-type' : 'application/json; charset=UTF-8',
     };
@@ -61,14 +70,19 @@ class FamarkCloudAPI {
         headers: headers,
       );
       if (response.headers.containsKey("errormessage")) {
-        String errorMessage = response.headers["erroressage"] as String;
+        String errorMessage = response.headers["errormessage"] as String;
+        errorDisplayMessage = errorMessage;
+        print("Error= " + errorDisplayMessage);
         //handle this error and show on screen
-        return "Error " + errorMessage;
+        return null;
+      }
+      else{
+        errorDisplayMessage = "";
       }
       return response.body;
     } catch (e) {
-      print("error" + e.toString());
-      return "Error " + e.toString();
+      print("Error in try catch" + e.toString());
+      return null;
     }
   }
 }
