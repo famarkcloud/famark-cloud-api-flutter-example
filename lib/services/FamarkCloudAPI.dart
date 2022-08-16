@@ -60,11 +60,15 @@ class FamarkCloudAPI {
         uri, body: body,
         headers: headers,
       );
-
+      if (response.headers.containsKey("errormessage")) {
+        String errorMessage = response.headers["erroressage"] as String;
+        //handle this error and show on screen
+        return "Error " + errorMessage;
+      }
       return response.body;
-    } catch(e) {
+    } catch (e) {
       print("error" + e.toString());
-      return "Error";
+      return "Error " + e.toString();
     }
   }
 }
