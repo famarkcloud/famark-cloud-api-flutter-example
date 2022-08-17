@@ -43,14 +43,14 @@ class DisplayState extends State<Display> {
                     ],
                     rows: contactRecords.map(
                           (element) => DataRow(cells: <DataCell>[
-                        DataCell(Text(element['FirstName'])),
+                        DataCell(Text(element['Name'])),
                         DataCell(Text(element['ContactType'])),
                         DataCell(ElevatedButton(
                           child: const Text("Edit"),
                           onPressed: () {
                             print("Element: " + element.toString());
                             print("Runtime Type: " + element.runtimeType.toString());
-                            print("First Name: " + element['FirstName']);
+                            print("First Name: " + element['Name']);
                             print("Contact Type: " + element['ContactType']);
                             print("ContactId : " + element['ContactId']);
 

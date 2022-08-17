@@ -20,10 +20,10 @@ class FamarkCloudAPI {
     _sessionId = jsonDecode(response);
   }
 
-  Future<List<dynamic>> retrieveRecords() async{
+  Future<List<dynamic>> retrieveRecords() async {
     Map<String, String> retrieveData = {
-      "Columns": "FirstName, ContactType, ContactId",
-      "OrderBy": "FirstName"
+      "Columns": "Name, ContactType, ContactId",
+      "OrderBy": "Name"
     };
     String request = json.encode(retrieveData);
     var response = await doPost("/Contact/RetrieveMultipleRecords", request);
@@ -33,7 +33,7 @@ class FamarkCloudAPI {
 
   Future createRecord(String name, String contactType) async{
     Map<String, String> contactData = {
-      'FirstName': name,
+      'Name': name,
       'ContactType': contactType,
     };
     String request = json.encode(contactData);
@@ -43,7 +43,7 @@ class FamarkCloudAPI {
   Future updateRecords(String name, String contactType, String contactId) async{
     Map<String, String> contactData = {
       'ContactId': contactId,
-      'FirstName': name,
+      'Name': name,
       'ContactType': contactType,
     };
     String request = json.encode(contactData);

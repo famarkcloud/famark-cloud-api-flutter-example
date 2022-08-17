@@ -31,7 +31,7 @@ class _UpdateContactState extends State<UpdateContact> {
   void initState() {
     // TODO: set text
     super.initState();
-    nameController.text = widget.contactData['FirstName'];
+    nameController.text = widget.contactData['Name'];
     _contactType = widget.contactData['ContactType'];
   }
 
