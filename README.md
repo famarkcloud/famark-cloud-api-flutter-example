@@ -21,7 +21,6 @@ For help getting started with Famark Cloud, watch the [Getting Started](https://
 5. Open the project and Configure the Flutter SDK path in Android Studio.
 6. Install the flutter dependencies using command: pub get
 
-
 ### Login Screen &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;Retrieve Contacts
 
 <img alt="ScreenShots/LoginScreen" src="ScreenShots/LoginScreen.png" width="30%">&nbsp; &nbsp; &nbsp; &nbsp;<img alt="ScreenShots/DisplayContactRecordsScreen" src="ScreenShots/DisplayContactRecordsScreen.png" width="30%">
