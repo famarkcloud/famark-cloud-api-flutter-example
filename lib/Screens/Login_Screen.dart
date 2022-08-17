@@ -24,9 +24,8 @@ class _LoginPageState extends State<LoginPage> {
     String domainName = domainNameController.text;
     String userName = userNameController.text;
     String password = passwordController.text;
-    await cloudAPI.loginPost(domainName, userName, password);
-    // validate error message
-    if(FamarkCloudAPI.errorDisplayMessage.isNotEmpty) {
+    bool success = await cloudAPI.loginPost(domainName, userName, password);
+    if(!success) {
       return false;
     }
     return true;

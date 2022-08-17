@@ -34,38 +34,41 @@ class DisplayState extends State<Display> {
               child: Scrollbar(
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
-                  child: DataTable(
-                    showBottomBorder: true,
-                    columns: const [
-                      DataColumn(label: Text('Name')),
-                      DataColumn(label: Text('Contact Type')),
-                      DataColumn(label: Text(''))
-                    ],
-                    rows: contactRecords.map(
-                          (element) => DataRow(cells: <DataCell>[
-                        DataCell(Text(element['Name'])),
-                        DataCell(Text(element['ContactType'])),
-                        DataCell(ElevatedButton(
-                          child: const Text("Edit"),
-                          onPressed: () {
-                            print("Element: " + element.toString());
-                            print("Runtime Type: " + element.runtimeType.toString());
-                            print("First Name: " + element['Name']);
-                            print("Contact Type: " + element['ContactType']);
-                            print("ContactId : " + element['ContactId']);
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: DataTable(
+                      showBottomBorder: true,
+                      columns: const [
+                        DataColumn(label: Text('Name')),
+                        DataColumn(label: Text('Contact Type')),
+                        DataColumn(label: Text(''))
+                      ],
+                      rows: contactRecords.map(
+                            (element) => DataRow(cells: <DataCell>[
+                          DataCell(Text(element['Name'])),
+                          DataCell(Text(element['ContactType'])),
+                          DataCell(ElevatedButton(
+                            child: const Text("Edit"),
+                            onPressed: () {
+                              print("Element: " + element.toString());
+                              print("Runtime Type: " + element.runtimeType.toString());
+                              print("First Name: " + element['Name']);
+                              print("Contact Type: " + element['ContactType']);
+                              print("ContactId : " + element['ContactId']);
 
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => UpdateContact(contactData: element),
-                              ),
-                            );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => UpdateContact(contactData: element),
+                                ),
+                              );
 
-                          },
-                        )),
-                      ]),
-                    )
-                        .toList(),
+                            },
+                          )),
+                        ]),
+                      )
+                          .toList(),
+                    ),
                   ),
                 ),
               ),

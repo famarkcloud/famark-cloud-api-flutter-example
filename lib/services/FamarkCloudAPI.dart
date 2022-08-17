@@ -15,9 +15,10 @@ class FamarkCloudAPI {
     String request = json.encode(credData);
     var response = await doPost("/Credential/Connect", request);
     if(response == null) {
-      return;
+      return false;
     }
     _sessionId = jsonDecode(response);
+    return true;
   }
 
   Future<List<dynamic>> retrieveRecords() async {
