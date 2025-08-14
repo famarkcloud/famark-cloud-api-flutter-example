@@ -1,33 +1,63 @@
 # famark-cloud-api-flutter-example
 This is a sample code showing how to call Famark Cloud API to store and retrieve data through Flutter mobile app with Dart programming language.
 
-### Setup Steps:
-1. This example requires **Famark Cloud Instance**, you can [register free instance](https://www.famark.com/Install/?ic=FreeDev) or sign in to your [existing instance](https://www.famark.com/) or [*download*](https://www.famark.com/cloud/products.htm) *Famark Cloud* for *Windows* or *Linux* platforms from [famark.com/cloud/products.htm](https://www.famark.com/cloud/products.htm).
-2. This example performs *Create, Retrieve, Update and Delete (CRUD)* actions on *Contact* entity present in *Business Solution*, so make sure you have the Business solution installed in your instance, if not then goto:- 
-*`Solutions > more actions (...) > Import Solution > Import From Store > Business Solution Install > Import Solution`*
-3. Clone this repository and run `npm install` from root to get package dependencies.
-4. Run the application with `npm start` enter your famark cloud credentials and perform CRUD operations on Business Contact entity from NodeJS. 
-
-*You can modify the code to perform these operations on your own entities.*
-
 ## Getting Started:
 
 ### Prerequisites:
 * Famark Cloud Domain
 * Android Studio
-* Flutter
+* Flutter SDK: Download and follow the steps for [Flutter SDK Bundle](https://docs.flutter.dev/install/manual) (it includes Dart SDK `\flutter\bin\cache\dart-sdk`)
 
-### Installation:
+### Setup Steps:
+1. This example requires **Famark Cloud Instance**, you can [register free instance](https://www.famark.com/Install/?ic=FreeDev) or sign in to your [existing instance](https://www.famark.com/) or [*download*](https://www.famark.com/cloud/products.htm) *Famark Cloud* for *Windows* or *Linux* platforms from [famark.com/cloud/products.htm](https://www.famark.com/cloud/products.htm).
+2. This example performs *Create, Retrieve, Update and Delete (CRUD)* actions on *Contact* entity present in *Business Solution*, so make sure you have the Business solution installed in your instance, if not then goto:- 
+*`Solutions > more actions button [...] > Import Solution > Import From Store > Business Solution Install > Import Solution`*
+3. Open Android Studio clone this repository and run `flutter pub get` in the root folder of the project.
+4. Configure Flutter SDK and Dart SDK paths in Android Studio *`File > Settings > Languages & Frameworks > Dart/Flutter`*
+5. Build and run the code to perform CRUD actions on `Business > Contact` entity.
 
-1. Register a Famark Cloud Domain at [famark.com/Install/?ic=FreePlatform](https://www.famark.com/Install/?ic=FreePlatform) The invite code is FreePlatform. 
-2. Create an Entity 'Contact' and add attributes 'Name' and 'Contact Type' with System Name as 'Name' and 'ContactType' to it.
-3. Add some records to the Contacts entity.
-4. Clone the repo
+*You can modify the code to perform these operations on your own entities.*
+
+### Troubleshoot Gradle Build Issue
+For example: `Error "Flutter BUG! exception in phase 'semantic analysis' in source unit '_BuildScript_' Unsupported class file major version (followed by a number)"`
+This is because gradle version should be based on the java version installed on the machine.
+Find the Java version with command
    ```sh
-   git clone https://github.com/famarkcloud/famark-cloud-api-flutter-example.git
+  cd C:\Program Files\Android\Android Studio\jbr\bin
+  java -version
    ```
-5. Open the project and Configure the Flutter SDK path in Android Studio.
-6. Install the flutter dependencies using command: pub get
+Find corresponding gradle version from the first table [gradle compatibility matrix](https://docs.gradle.org/current/userguide/compatibility.html)
+
+Update distributionUrl in the file:
+`famark-cloud-api-flutter\android\gradle\wrapper\gradle-wrapper.properties`
+   ```sh
+   distributionUrl=https\://services.gradle.org/distributions/gradle-<gradle-version>-all.zip
+   ```
+Next modify Android Gradle Plugin (AGP) version referred as "com.android.application" in the file:
+`famark-cloud-api-flutter\android\settings.gradle`
+   ```sh
+   plugins {
+     ...
+     id "com.android.application" version "<toolchain-version>" apply false
+   }
+   ```
+
+If Kotlin is required for your project then find the corresponding kotlin version based on gradle version from the **second table** of the same [gradle compatibility matrix](https://docs.gradle.org/current/userguide/compatibility.html).
+Add the kotlin plugin to the above mentioned `plugins` block
+   ```sh
+   plugins {
+     ...
+     id "com.android.application" version "<toolchain-version>" apply false
+     id "org.jetbrains.kotlin.android" version "<kotlin-version>" apply false
+   }
+   ```
+Also ensure that `kotin-android` is added to the plugins block in the file `famark-cloud-api-flutter\app\build.gradle`
+   ```sh
+   plugins {
+     ...
+     id "kotlin-android"
+   }
+   ```
 
 ## Output:
 
