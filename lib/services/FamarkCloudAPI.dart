@@ -23,32 +23,32 @@ class FamarkCloudAPI {
 
   Future<List<dynamic>> retrieveRecords() async {
     Map<String, String> retrieveData = {
-      "Columns": "Name, ContactType, ContactId",
-      "OrderBy": "Name"
+      "Columns": "LastName, Phone, Business_ContactId",
+      "OrderBy": "LastName"
     };
     String request = json.encode(retrieveData);
-    var response = await doPost("/Contact/RetrieveMultipleRecords", request);
+    var response = await doPost("/Business_Contact/RetrieveMultipleRecords", request);
     List<dynamic> records = jsonDecode(response!);
     return records;
   }
 
-  Future createRecord(String name, String contactType) async{
+  Future createRecord(String lastName, String phone) async{
     Map<String, String> contactData = {
-      'Name': name,
-      'ContactType': contactType,
+      'LastName': lastName,
+      'Phone': phone,
     };
     String request = json.encode(contactData);
-    await doPost("/Contact/CreateRecord", request);
+    await doPost("/Business_Contact/CreateRecord", request);
   }
 
-  Future updateRecords(String name, String contactType, String contactId) async{
+  Future updateRecords(String lastName, String phone, String contactId) async{
     Map<String, String> contactData = {
-      'ContactId': contactId,
-      'Name': name,
-      'ContactType': contactType,
+      'LastName': lastName,
+      'Phone': phone,
+      'Business_ContactId': contactId,
     };
     String request = json.encode(contactData);
-    await doPost("/Contact/UpdateRecord", request);
+    await doPost("/Business_Contact/UpdateRecord", request);
   }
 
   Future<String?> doPost(String suffixUrl, String body) async {
@@ -66,8 +66,9 @@ class FamarkCloudAPI {
         uri, body: body,
         headers: headers,
       );
+      //Note: although the server returns header as ErrorMessage but Dart api converts it to lowercase errormessage
       if (response.headers.containsKey("errormessage")) {
-        String errorMessage = response.headers["errormessage"] as String;
+        String? errorMessage = response.headers["errormessage"] as String;
         errorDisplayMessage = errorMessage;
         print("Error= " + errorDisplayMessage);
         //handle this error and show on screen

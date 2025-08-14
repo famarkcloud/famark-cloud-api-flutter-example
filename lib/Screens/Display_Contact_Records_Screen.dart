@@ -16,7 +16,7 @@ class DisplayState extends State<Display> {
   FamarkCloudAPI cloudAPI = FamarkCloudAPI();
 
   Future setContactRecords() async {
-    List<dynamic> retrievedRecords = await cloudAPI.retrieveRecords() as List;
+    List<dynamic> retrievedRecords = await cloudAPI.retrieveRecords();
     contactRecords = retrievedRecords;
   }
 
@@ -40,21 +40,21 @@ class DisplayState extends State<Display> {
                       showBottomBorder: true,
                       columns: const [
                         DataColumn(label: Text('Name')),
-                        DataColumn(label: Text('Contact Type')),
+                        DataColumn(label: Text('Phone')),
                         DataColumn(label: Text(''))
                       ],
                       rows: contactRecords.map(
                             (element) => DataRow(cells: <DataCell>[
-                          DataCell(Text(element['Name'])),
-                          DataCell(Text(element['ContactType'])),
+                          DataCell(Text(element['LastName'])),
+                          DataCell(Text(element['Phone'])),
                           DataCell(ElevatedButton(
                             child: const Text("Edit"),
                             onPressed: () {
                               print("Element: " + element.toString());
                               print("Runtime Type: " + element.runtimeType.toString());
-                              print("First Name: " + element['Name']);
-                              print("Contact Type: " + element['ContactType']);
-                              print("ContactId : " + element['ContactId']);
+                              print("LastName: " + element['LastName']);
+                              print("Phone: " + element['Phone']);
+                              print("Business_ContactId: " + element['Business_ContactId']);
 
                               Navigator.push(
                                 context,

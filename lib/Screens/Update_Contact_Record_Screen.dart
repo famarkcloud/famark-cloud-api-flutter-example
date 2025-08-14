@@ -15,24 +15,23 @@ class _UpdateContactState extends State<UpdateContact> {
   FamarkCloudAPI cloudAPI = FamarkCloudAPI();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
-  String? _contactType;
-  final contactTypesList = ['Colleague', 'Family', 'Friend'];
+  TextEditingController phoneController = TextEditingController();
 
   Future updateContact() async{
     if(!formKey.currentState!.validate()) {
       return;
     }
     String name = nameController.text;
-    String contactType = _contactType!;
-    await cloudAPI.updateRecords(name, contactType, widget.contactData['ContactId']);
+    String phone = phoneController.text;
+    await cloudAPI.updateRecords(name, phone, widget.contactData['Business_ContactId']);
   }
 
   @override
   void initState() {
     // TODO: set text
     super.initState();
-    nameController.text = widget.contactData['Name'];
-    _contactType = widget.contactData['ContactType'];
+    nameController.text = widget.contactData['LastName'];
+    phoneController.text = widget.contactData['Phone'];
   }
 
   DropdownMenuItem<String> buildMenuItem(String item) =>
@@ -63,8 +62,8 @@ class _UpdateContactState extends State<UpdateContact> {
                   controller: nameController,
                   autofocus: true,
                   maxLength: 15,
-                  validator: (name){
-                    if(name == null || name.isEmpty){
+                  validator: (value){
+                    if(value == null || value.isEmpty){
                       return "Required *";
                     } else {
                       return null;
@@ -77,18 +76,21 @@ class _UpdateContactState extends State<UpdateContact> {
                 ),
                 Padding(
                     padding: const EdgeInsets.only(top: 20),
-                    child: DropdownButtonFormField(
-                      value: _contactType,
-                      hint: const Text('Select Contact Type'),
-                      validator: (contactType) {
-                        if(contactType == null || contactType.toString().isEmpty) {
+                    child: TextFormField(
+                      controller: phoneController,
+                      autofocus: true,
+                      maxLength: 15,
+                      validator: (value){
+                        if(value == null || value.isEmpty){
                           return "Required *";
                         } else {
                           return null;
                         }
                       },
-                      items: contactTypesList.map(buildMenuItem).toList(),
-                      onChanged: (contactType) => _contactType=contactType as String?,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                        labelText: "Phone",
+                      ),
                     )
                 ),
                 Padding(

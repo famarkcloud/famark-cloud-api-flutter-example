@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import '../services/FamarkCloudAPI.dart';
 import 'Display_Contact_Records_Screen.dart';
+//ignore: must_be_immutable
 class CreateContactRecords extends StatelessWidget {
   CreateContactRecords({Key? key}) : super(key: key);
 
   FamarkCloudAPI cloudAPI = FamarkCloudAPI();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
-  String? _contactType;
-  final contactTypesList = ['Colleague', 'Family', 'Friend'];
+  TextEditingController phoneController = TextEditingController();
 
   Future createContact() async{
     if(!formKey.currentState!.validate()) {
         return;
     }
     String name = nameController.text;
-    String contactType = _contactType!;
-    await cloudAPI.createRecord(name, contactType);
+    String phone = phoneController.text;
+    await cloudAPI.createRecord(name, phone);
   }
 
   DropdownMenuItem<String> buildMenuItem(String item) =>
@@ -46,8 +46,8 @@ class CreateContactRecords extends StatelessWidget {
                   controller: nameController,
                   autofocus: true,
                   maxLength: 15,
-                  validator: (name){
-                    if(name == null || name.isEmpty){
+                  validator: (value){
+                    if(value == null || value.isEmpty){
                       return "Required *";
                     } else {
                       return null;
@@ -61,19 +61,23 @@ class CreateContactRecords extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),
-                  child: DropdownButtonFormField(
-                    value: _contactType,
-                    hint: const Text('Select Contact Type'),
-                    validator: (contactType) {
-                      if(contactType == null || contactType.toString().isEmpty) {
+                  child: TextFormField(
+                    controller: phoneController,
+                    autofocus: true,
+                    maxLength: 15,
+                    validator: (value){
+                      if(value == null || value.isEmpty){
                         return "Required *";
                       } else {
                         return null;
                       }
                     },
-                    items: contactTypesList.map(buildMenuItem).toList(),
-                    onChanged: (contactType) => _contactType = contactType as String?,
-                  )
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+
+                      labelText: "Phone",
+                    ),
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20),

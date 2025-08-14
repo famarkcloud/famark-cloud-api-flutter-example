@@ -4,9 +4,9 @@ This is a sample code showing how to call Famark Cloud API to store and retrieve
 ## Getting Started:
 
 ### Prerequisites:
-* Famark Cloud Domain
 * Android Studio
-* Flutter SDK: Download and follow the steps for [Flutter SDK Bundle](https://docs.flutter.dev/install/manual) (it includes Dart SDK `\flutter\bin\cache\dart-sdk`)
+* Flutter SDK: download and follow the steps for [Flutter SDK Bundle](https://docs.flutter.dev/install/manual) (it includes Dart SDK at `flutter\bin\cache\dart-sdk`)
+* Famark Cloud Domain
 
 ### Setup Steps:
 1. This example requires **Famark Cloud Instance**, you can [register free instance](https://www.famark.com/Install/?ic=FreeDev) or sign in to your [existing instance](https://www.famark.com/) or [*download*](https://www.famark.com/cloud/products.htm) *Famark Cloud* for *Windows* or *Linux* platforms from [famark.com/cloud/products.htm](https://www.famark.com/cloud/products.htm).
@@ -18,15 +18,15 @@ This is a sample code showing how to call Famark Cloud API to store and retrieve
 
 *You can modify the code to perform these operations on your own entities.*
 
-### Troubleshoot Gradle Build Issue
+### Troubleshoot Gradle Issue
 For example: `Error "Flutter BUG! exception in phase 'semantic analysis' in source unit '_BuildScript_' Unsupported class file major version (followed by a number)"`
 This is because gradle version should be based on the java version installed on the machine.
-Find the Java version with command
+Find the Java version with the command:
    ```sh
   cd C:\Program Files\Android\Android Studio\jbr\bin
   java -version
    ```
-Find corresponding gradle version from the first table [gradle compatibility matrix](https://docs.gradle.org/current/userguide/compatibility.html)
+Find corresponding gradle version from the first table at [gradle compatibility matrix](https://docs.gradle.org/current/userguide/compatibility.html)
 
 Update distributionUrl in the file:
 `famark-cloud-api-flutter\android\gradle\wrapper\gradle-wrapper.properties`
